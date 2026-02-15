@@ -77,7 +77,7 @@ export default async function routes(fastify: FastifyInstance) {
         throw ERRORS.InvalidSignature()
       }
 
-      const s3Key = `${request.tenantId}/${url}`
+      const s3Key = `${url}`
 
       const [bucketName, ...objParts] = url.split('/')
       const obj = await request.storage

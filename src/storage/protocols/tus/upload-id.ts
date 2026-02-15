@@ -44,18 +44,18 @@ export class UploadId {
 
   toString() {
     const separator = tusUseFileVersionSeparator ? FILE_VERSION_SEPARATOR : PATH_SEPARATOR
-    return `${this.tenant}/${this.bucket}/${this.objectName}${separator}${this.version}`
+    return `${this.bucket}/${this.objectName}${separator}${this.version}`
   }
 }
 
 function fromPathSeparator(id: string) {
   const idParts = id.split(PATH_SEPARATOR)
 
-  if (idParts.length < 3) {
+  if (idParts.length < 2) {
     throw ERRORS.InvalidUploadId()
   }
 
-  const [tenant, bucket, ...objParts] = idParts
+  const [bucket, ...objParts] = idParts
   const version = objParts.pop()
 
   if (!version) {
@@ -65,7 +65,7 @@ function fromPathSeparator(id: string) {
   return {
     version,
     objectName: objParts.join('/'),
-    tenant,
+    tenant: 'stub',
     bucket,
   }
 }
@@ -73,11 +73,11 @@ function fromPathSeparator(id: string) {
 function fromFileSeparator(id: string) {
   const idParts = id.split(PATH_SEPARATOR)
 
-  if (idParts.length < 3) {
+  if (idParts.length < 2) {
     throw ERRORS.InvalidUploadId()
   }
 
-  const [tenant, bucket, ...objParts] = idParts
+  const [bucket, ...objParts] = idParts
   const objectWithVersion = objParts.pop()
 
   const separator = SEPARATOR
@@ -99,7 +99,7 @@ function fromFileSeparator(id: string) {
   return {
     version,
     objectName,
-    tenant,
+    tenant: 'stub',
     bucket,
   }
 }

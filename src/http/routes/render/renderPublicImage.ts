@@ -59,7 +59,7 @@ export default async function routes(fastify: FastifyInstance) {
         bucketRef.findObject(objectName, 'id,version,metadata'),
       ])
 
-      const s3Key = `${request.tenantId}/${bucketName}/${objectName}`
+      const s3Key = `${bucketName}/${objectName}`
 
       const renderer = request.storage.renderer('image') as ImageRenderer
 

@@ -81,7 +81,7 @@ export class ObjectAdminDeleteAllBefore extends BaseEvent<ObjectDeleteAllBeforeE
               const prefixes: string[] = []
 
               for (const { name, version } of deleted) {
-                const fileName = withOptionalVersion(`${tenantId}/${bucketId}/${name}`, version)
+                const fileName = withOptionalVersion(`${bucketId}/${name}`, version)
                 prefixes.push(fileName)
                 prefixes.push(fileName + '.info')
               }

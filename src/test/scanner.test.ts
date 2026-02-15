@@ -47,7 +47,7 @@ describe('ObjectScanner', () => {
     const s3ToDelete = result.slice(5, 5 + numToDelete)
     await storage.adapter.deleteObjects(
       storageS3Bucket,
-      s3ToDelete.map((o) => `${tenantId}/${bucket.id}/${o.name}/${o.version}`)
+      s3ToDelete.map((o) => `${bucket.id}/${o.name}/${o.version}`)
     )
 
     const objectsAfterDel = await storage.database.listObjects(bucket.id, 'name', 10000)
@@ -135,7 +135,7 @@ describe('ObjectScanner', () => {
 
     while (true) {
       const s3Objects = await storage.adapter.list(storageS3Bucket, {
-        prefix: `${tenantId}/${bucket.id}`,
+        prefix: `${bucket.id}`,
         nextToken: nextToken,
       })
       s3ObjectAll.push(...s3Objects.keys)
@@ -152,7 +152,7 @@ describe('ObjectScanner', () => {
 
     // Check files are backed-up
     const backupFiles = await storage.adapter.list(storageS3Bucket, {
-      prefix: `__internal/${tenantId}/${bucket.id}`,
+      prefix: `__internal/${bucket.id}`,
     })
 
     expect(backupFiles.keys).toHaveLength(numToDelete)

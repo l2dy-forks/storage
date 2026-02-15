@@ -23,7 +23,7 @@ export class TenantLocation implements StorageObjectLocator {
     objectName: string
     version?: string
   }) {
-    const key = `${params.tenantId}/${params.bucketId}/${withOptionalVersion(
+    const key = `${params.bucketId}/${withOptionalVersion(
       params.objectName,
       params.version
     )}`

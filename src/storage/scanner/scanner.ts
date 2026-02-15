@@ -32,7 +32,7 @@ export class ObjectScanner {
     options: { before?: Date; keepTmpTable?: boolean; signal: AbortSignal }
   ) {
     const tmpTable = `${S3_KEYS_TMP_TABLE_NAME}_${Date.now()}`
-    const prefix = `${this.storage.db.tenantId}/${bucket}`
+    const prefix = `${bucket}`
 
     const localDBKeys = this.syncS3KeysToDB(tmpTable, prefix, options)
 
@@ -90,7 +90,7 @@ export class ObjectScanner {
       signal: AbortSignal
     }
   ) {
-    const prefix = `${this.storage.db.tenantId}/${bucket}`
+    const prefix = `${bucket}`
     const tmpTable = options.tmpTable || `${S3_KEYS_TMP_TABLE_NAME}_${Date.now()}`
 
     try {
